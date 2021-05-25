@@ -98,13 +98,15 @@ function openModal(event) {
   modal.classList.add("is-open");
 
   currentElImg[0].src = event.target.dataset.source;
+  console.log(event.target);
+  console.log(event.target.dataset.source);
 }
 
-const closeModalBtn = document.querySelector(
-  "button[data-action='close-lightbox']"
-);
+// const closeModalBtn = document.querySelector(
+//   "button[data-action='close-lightbox']"
+// );
 
-closeModalBtn.addEventListener("click", closeModal);
+// closeModalBtn.addEventListener("click", closeModal);
 
 function closeModal() {
   modal.classList.remove("is-open");
@@ -119,7 +121,47 @@ document.addEventListener("keydown", (ev) => {
 });
 
 modal.addEventListener("click", (ev) => {
-  if (!ev.target.classList.contains("lightbox__image")) {
+  if (ev.target.hasAttribute("data-action")) {
     closeModal();
   }
+
+  if (ev.target.classList.contains("lightbox__overlay")) {
+    closeModal();
+  }
+
+  if (ev.target.classList.contains("lightbox__button--left")) {
+    imagesArr.find((el, ind) => {
+      if (el.original === currentElImg[0].src) {
+        if (ind - 1 >= 0) {
+          currentElImg[0].src = imagesArr[ind - 1].original;
+        }
+      }
+    });
+  }
+
+  if (ev.target.classList.contains("lightbox__button--right")) {
+    for (const el of imagesArr) {
+      if (el.original === currentElImg[0].src) {
+        if (imagesArr.indexOf(el) + 1 < imagesArr.length) {
+          console.dir(imagesArr[imagesArr.indexOf(el) + 1].original);
+          currentElImg[0].src = imagesArr[imagesArr.indexOf(el) + 1].original;
+        }
+        break;
+      }
+    }
+  }
+
+  /* Чере find пробовал, не прерывается цикл :( */
+
+  // if (ev.target.classList.contains("lightbox__button--right")) {
+  //   imagesArr.find((el, ind) => nextEl(el, ind));
+  // }
+  // function nextEl(el, ind) {
+  //   if (el.original === currentElImg[0].src) {
+  //     if (ind + 1 < imagesArr.length) {
+  //       currentElImg[0].src = imagesArr[ind + 1].original;
+  //     }
+  //     return;
+  //   }
+  // }
 });

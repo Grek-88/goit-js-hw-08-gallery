@@ -134,6 +134,20 @@ body {
   background-repeat: no-repeat;
 }
 
+.lightbox__button--left {
+  top: 50%;
+  left: -5px;
+
+  background-image: url("../images/arrow-left.svg");
+}
+
+.lightbox__button--right {
+  top: 50%;
+  right: 8px;
+
+  background-image: url("../images/arrow-right.svg");
+}
+
 .lightbox__button:hover,
 .lightbox__button:focus {
   background-color: rgba(0, 0, 0, 0.5);
